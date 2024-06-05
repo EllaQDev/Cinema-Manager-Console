@@ -15,7 +15,7 @@ fun main() {
     val rows = 1..7
     val columns = 1..8
     //print Cinema title
-    println("Cinema")
+    println("Cinema:")
 
     println(columns.joinToString(separator = " ", prefix = "  "))
     for (n in rows) {
