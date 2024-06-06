@@ -56,21 +56,35 @@ Cinema:
 //> 7
 //Total income:
 //$560
-fun main() {
-    val rows = 1..7
-    val columns = 1..8
+import java.util.*
+fun printSeatingPlan(rows: Int, seats: Int, ticketRow: Int?=  null, ticketSeat: Int? = null ) {
+    val rowsRange = 1..rows
+    val columnRange = 1..seats
     //print Cinema title
     println("Cinema:")
 
-    println(columns.joinToString(separator = " ", prefix = "  "))
-    for (n in rows) {
-        print(n)
-        repeat(8) {
-            print(" S")
-        }
-        println()
-    }
+    println(columnRange.joinToString(separator = " ", prefix = "  "))
+    if (ticketRow == null || ticketSeat == null) {
 
+        for (n in rowsRange) {
+            print(n)
+            repeat(8) {
+                print(" S")
+            }
+            println()
+        }
+    } else {
+        val seatingPlan = List(rows) {MutableList(seats) { 'S' }}
+        seatingPlan[ticketRow-1][ticketSeat-1] = 'B'
+        for ((i,row) in seatingPlan.withIndex()) {
+            print("${i+1} ")
+            print("${row.joinToString(separator = " ")}\n")
+        }
+    }
+}
+fun main() {
+
+    printSeatingPlan(7, 8)
     //prompt user for # rows and receive input
     println("Enter the number of rows:")
     val numRows = readln().toInt()
@@ -80,12 +94,34 @@ fun main() {
     //label for income
     print("Total income:\n$")
     val totalSeats = numRows * numCol
+    val numPremiumRows = numRows/2
+    val numReducedRows = numRows - numPremiumRows
     //conditional calculation of total income
     if (totalSeats <= 60) {
-        print(totalSeats * 10)
+        println(totalSeats * 10)
     } else {
-        val numPremiumRows = numRows/2
-        val numReducedRows = numRows - numPremiumRows
-        print(numPremiumRows * 10 * numCol + numReducedRows * 8 * numCol)
+        println(numPremiumRows * 10 * numCol + numReducedRows * 8 * numCol)
     }
+    //Phase 3: read input of #Rows #seats, print chart, pick a seat, print price and seating chart
+    println("Enter the number of rows:")
+    val numRowsReal = readln().toInt()
+    //prompt user for # columns and receive input
+    println("Enter the number of seats in each row:")
+    val numColReal = readln().toInt()
+    printSeatingPlan(numRowsReal, numColReal)
+    //prompt user for seat location
+    println("Enter a row number:")
+    val ticketRow = readln().toInt()
+    println("Enter a seat number in that row:")
+    val ticketSeat = readln().toInt()
+    if (totalSeats <= 60) {
+        println("Ticket price: \$10")
+    } else {
+        if (ticketRow in 1..numPremiumRows) {
+            println("Ticket price: \$10")
+        } else {
+            println("Ticket price: \$8")
+        }
+    }
+    printSeatingPlan(numRowsReal, numColReal, ticketRow, ticketSeat)
 }
