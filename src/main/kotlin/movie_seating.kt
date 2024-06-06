@@ -68,7 +68,7 @@ fun printSeatingPlan(rows: Int, seats: Int, ticketRow: Int?=  null, ticketSeat: 
 
         for (n in rowsRange) {
             print(n)
-            repeat(8) {
+            repeat(seats) {
                 print(" S")
             }
             println()
