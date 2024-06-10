@@ -36,9 +36,8 @@ fun purchaseTicket(plan: List<MutableList<String>>){
     val seatsPerRow = plan.first().size
     val totalSeats = plan.size * seatsPerRow
     val numPremiumRows = plan.size/2
-    var row : Int? = null
-    var seat : Int? = null
-    //TODO() make a loop of ticket selection
+    var row : Int?
+    var seat : Int?
     while(true) {
         println("Enter a row number:")
         row = readln().toInt()
@@ -80,7 +79,7 @@ fun showStatistics(plan: List<MutableList<String>>){
     val sold = plan.flatten().count { it == "B"}
     println("Number of purchased tickets: $sold")
     // % purchased tickets
-    println("Percentage: ${java.text.DecimalFormat("#,##0.00").format(sold / totalSeats.toDouble())}")
+    println("Percentage: ${java.text.DecimalFormat("#,##0.00").format(sold / totalSeats.toDouble())}%")
     // current income
     if (totalSeats <= 60) {
         println(sold * 10)
@@ -93,11 +92,11 @@ fun showStatistics(plan: List<MutableList<String>>){
                 income += (row.count { it == "B" }) * 8
             }
         }
-        println("Current income: $income")
+        println("Current income: $$income")
     }
     //total potential income calculation
     if (totalSeats <= 60) {
-        println("Total income: ${totalSeats * 60}")
+        println("Total income: $${totalSeats * 60}")
     } else {
         var totalIncome = 0
         //add all premium seats
@@ -107,7 +106,7 @@ fun showStatistics(plan: List<MutableList<String>>){
         for (n in 1..numDiscountRows) {
             totalIncome += 8 * seatsPerRow
         }
-        println("Total income: $totalIncome")
+        println("Total income: $$totalIncome")
 
     }
 }
