@@ -79,14 +79,14 @@ fun showStatistics(plan: List<MutableList<String>>){
     val sold = plan.flatten().count { it == "B"}
     println("Number of purchased tickets: $sold")
     // % purchased tickets
-    println("Percentage: ${java.text.DecimalFormat("#,##0.00").format(sold / totalSeats.toDouble())}%")
+    println("Percentage: ${java.text.DecimalFormat("##.##").format(sold.toDouble() / totalSeats.toDouble() * 100)}%")
     // current income
     if (totalSeats <= 60) {
         println(sold * 10)
     } else {
         var income = 0
         for ((i,row) in plan.withIndex()) {
-            if (i in 1..numPremiumRows){
+            if (i+1 in 1..numPremiumRows){
                 income += (row.count { it == "B" }) * 10
             } else {
                 income += (row.count { it == "B" }) * 8
