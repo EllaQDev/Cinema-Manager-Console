@@ -33,17 +33,28 @@ fun printSeatingPlan(plan: List<MutableList<String>>) {
 }
 
 fun purchaseTicket(plan: List<MutableList<String>>){
-    val totalSeats = plan.size * plan.first().size
+    val seatsPerRow = plan.first().size
+    val totalSeats = plan.size * seatsPerRow
     val numPremiumRows = plan.size/2
+    var row : Int? = null
+    var seat : Int? = null
     //TODO() make a loop of ticket selection
-    println("Enter a row number:")
-    val row = readln().toInt()
-    println("Enter a seat number in that row:")
-    val seat = readln().toInt()
-    if (plan[row-1][seat-1] != "B"){
-        plan[row-1][seat-1] = "B"
-    } else {
-        println("That ticket has already been purchased!")
+    while(true) {
+        println("Enter a row number:")
+        row = readln().toInt()
+        println("Enter a seat number in that row:")
+        seat = readln().toInt()
+        if (row in 1..plan.size && seat in 1..seatsPerRow){
+            if (plan[row-1][seat-1] != "B"){
+                plan[row-1][seat-1] = "B"
+                break
+            } else {
+                println("That ticket has already been purchased!")
+            }
+        } else {
+            println("Wrong input!")
+            continue
+        }
     }
     if (totalSeats <= 60) {
         println("Ticket price: \$10")
